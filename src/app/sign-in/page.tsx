@@ -1,14 +1,14 @@
 import React from 'react';
-import {metadataByRoute} from "@/resources/metadata";
-import {Metadata} from "next";
+import SignIn from '@/components/sign-in/SignIn';
+import {defaultMetadata, metadataByRoute} from "@/resources/metadata";
 
-export const metadata : Metadata = metadataByRoute["/sign-in"];
+export const metadata = metadataByRoute["/sign-in"] || defaultMetadata;
 
 const Page = () => {
     return (
-        <div>
-            
-        </div>
+        <>
+         <SignIn/>
+        </>
     );
 };
 

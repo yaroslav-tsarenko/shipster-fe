@@ -39,6 +39,7 @@ type CustomButtonProps = ButtonProps & {
     children: React.ReactNode;
     color?: 'blue' | 'green';
     loading?: boolean;
+    sx?: React.CSSProperties;
 };
 
 const StyledButton = styled(BaseButton, {
@@ -90,8 +91,17 @@ const StyledButton = styled(BaseButton, {
 );
 
 const CustomButton: React.FC<CustomButtonProps> = (props) => {
-    const { color = 'blue', loading = false, children, disabled, ...rest } = props;
-    return <StyledButton sx={{alignContent: "center", justifyContent: "center", alignItems: "center", justifyItems: "center", textAlign: "center", display: "flex", gap: "5px"}} color={color} {...rest} disabled={loading || disabled}>{loading ? <CircularProgress size={15} color="inherit"/> : children}</StyledButton>;
+    const { color = 'blue', loading = false, children, disabled, sx, ...rest } = props;
+    return (
+        <StyledButton
+            style={sx}
+            color={color}
+            {...rest}
+            disabled={loading || disabled}
+        >
+            {loading ? <CircularProgress size={15} color="inherit"/> : children}
+        </StyledButton>
+    );
 };
 
 export default CustomButton;
