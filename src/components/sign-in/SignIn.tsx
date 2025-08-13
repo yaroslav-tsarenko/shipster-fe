@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import CustomInput from '@/ui/custom-input/CustomInput';
 import CustomButton from '@/ui/custom-button/CustomButton';
 import FormWrapper from '../form-wrapper/FormWrapper';
+import Grid from "@/constructor/grid/Grid";
 
 const SignInSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email address').required('Email is required'),
@@ -28,11 +29,13 @@ const SignIn = () => (
         >
             {({ isSubmitting }) => (
                 <Form>
-                    <CustomInput name="email" label="Email Address" placeholder="Email Address" type="email" />
-                    <CustomInput name="password" label="Password" placeholder="Password" type="password" />
-                    <CustomButton type="submit" sx={{ width: "100%" }} loading={isSubmitting} color="green">
-                        Sign In
-                    </CustomButton>
+                    <Grid columns={1} gap="15px">
+                        <CustomInput name="email"  label="Email Address" placeholder="Email Address" type="email" />
+                        <CustomInput name="password"  label="Password" placeholder="Password" type="password" />
+                        <CustomButton type="submit" sx={{ width: "100%" }} loading={isSubmitting} color="green">
+                            Sign In
+                        </CustomButton>
+                    </Grid>
                 </Form>
             )}
         </Formik>

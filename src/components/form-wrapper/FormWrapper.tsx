@@ -8,7 +8,6 @@ import Link from 'next/link';
 const FormWrapper: FC<FormWrapperProps> = ({children, title, description}) => {
     return (
         <div className={styles.wrapper}>
-
             <div className={styles.form}>
                 <div className={styles.titleContainer}>
                     <div className={styles.titles}>
