@@ -1,0 +1,89 @@
+.header {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  color: white;
+  width: 100%;
+  align-content: center;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: white;
+
+  &.sticky {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+    transition: box-shadow 0.2s;
+  }
+}
+
+.logo {
+  width: 160px;
+  height: auto;
+  display: flex;
+  object-fit: contain;
+}
+
+.inner {
+  display: flex;
+  max-width: 1400px;
+  align-items: center;
+  align-content: center;
+  width: 100%;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.nav {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+
+  a {
+    color: var(--dark-grey);
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s all;
+    padding: 10px 15px;
+    font-size: var(--14px);
+    border-radius: 10px;
+
+    &:hover {
+      background: rgba(128, 128, 128, 0.18);
+      backdrop-filter: blur(15px);
+      color: var(--dark-grey);
+    }
+  }
+}
+
+.authButtons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.specialHeader {
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 24px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.specialInner {
+  width: 100%;
+  max-width: 1400px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.securityText {
+  font-size: 1rem;
+  color: #2d2d2d;
+  font-weight: 500;
+  margin-left: 32px;
+}
