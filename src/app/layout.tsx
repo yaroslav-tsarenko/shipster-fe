@@ -4,6 +4,8 @@ import Footer from "@/components/footer/Footer";
 import PageWrapper from "@/components/page-wrapper/PageWrapper";
 import {defaultMetadata} from "@/resources/metadata";
 import CookiePolicy from "@/components/cookie-policy/CookiePolicy";
+import React from "react";
+import {AlertProvider} from "@/utils/AlertContext";
 
 export const metadata = defaultMetadata;
 
@@ -23,10 +25,12 @@ export default function RootLayout({
             />
         </head>
         <body>
-        <Header/>
-        <CookiePolicy/>
-        <PageWrapper>{children}</PageWrapper>
-        <Footer/>
+        <AlertProvider>
+            <Header/>
+            <CookiePolicy/>
+            <PageWrapper>{children}</PageWrapper>
+            <Footer/>
+        </AlertProvider>
         </body>
         </html>
     );

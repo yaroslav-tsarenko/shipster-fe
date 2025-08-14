@@ -2,12 +2,12 @@ import React from "react";
 import PageRenderer from "@/constructor/page-render/PageRender";
 import type {Metadata} from "next";
 import {metadataFromSchema} from "@/utils/fromSchema";
-import servicesSchema from "@/schemas/services/servicesPage";
+import userAgreementSchema from "@/schemas/user-agreement/userAgreementPage";
 
 export async function generateMetadata(): Promise<Metadata> {
-    return await metadataFromSchema(servicesSchema.meta);
+    return await metadataFromSchema(userAgreementSchema.meta);
 }
 
 export default function Page() {
-    return <PageRenderer schema={servicesSchema} />;
+    return <PageRenderer schema={userAgreementSchema} />;
 }

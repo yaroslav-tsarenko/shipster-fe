@@ -1,9 +1,10 @@
 "use client"
 
 import * as React from 'react';
-import { Button as BaseButton, ButtonProps, buttonClasses } from '@mui/base/Button';
-import { styled } from '@mui/system';
+import {Button as BaseButton, ButtonProps, buttonClasses} from '@mui/base/Button';
+import {styled} from '@mui/system';
 import {CircularProgress} from "@mui/material";
+
 const blue = {
     200: '#99CCFF',
     300: '#66B2FF',
@@ -45,7 +46,7 @@ type CustomButtonProps = ButtonProps & {
 const StyledButton = styled(BaseButton, {
     shouldForwardProp: (prop) => prop !== 'color'
 })<CustomButtonProps>(
-    ({ theme, color = 'blue' }) => {
+    ({theme, color = 'blue'}) => {
         const palette = color === 'green' ? green : blue;
         return `
             font-family: 'IBM Plex Sans', sans-serif;
@@ -62,7 +63,6 @@ const StyledButton = styled(BaseButton, {
             box-shadow: 0 2px 1px ${
             theme.palette?.mode === 'dark' ? 'rgba(0, 0, 0, 0.5)' : 'rgba(45, 45, 60, 0.2)'
         }, inset 0 1.5px 1px ${palette[400]}, inset 0 -2px 1px ${palette[600]};
-
             &:hover {
               background-color: ${palette[600]};
             }
@@ -91,7 +91,7 @@ const StyledButton = styled(BaseButton, {
 );
 
 const CustomButton: React.FC<CustomButtonProps> = (props) => {
-    const { color = 'blue', loading = false, children, disabled, sx, ...rest } = props;
+    const {color = 'blue', loading = false, children, disabled, sx, ...rest} = props;
     return (
         <StyledButton
             style={sx}

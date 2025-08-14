@@ -11,6 +11,8 @@ import FormWrapper from '../form-wrapper/FormWrapper';
 import Grid from "@/constructor/grid/Grid";
 import Divider from '@/ui/divider/Divider';
 import {BusinessType, TitleInfo} from "@/resources/types";
+import {newRequest} from "@/utils/newRequest";
+import { useAlert } from '@/utils/AlertContext';
 
 const B2CSchema = Yup.object().shape({
     firstName: Yup.string().required('First name is required'),
@@ -90,10 +92,11 @@ const ConsentCheckbox = () => {
     );
 };
 
-
 const SignUp = () => {
     const [type, setType] = useState<'b2c' | 'b2b'>('b2c');
     const schema = type === 'b2c' ? B2CSchema : B2BSchema;
+    const [loading, setLoading] = useState(false);
+    const {showAlert} = useAlert();
     const initialValues = type === 'b2c' ? initialB2C : initialB2B;
     const getTitle = ({ business }: { business: BusinessType }): TitleInfo => {
         switch (business) {
@@ -117,6 +120,58 @@ const SignUp = () => {
 
     const titleInfo = getTitle({ business: type });
 
+    async function handleRegister(
+        values: Record<string, unknown>,
+        type: 'b2c' | 'b2b',
+        setSubmitting: (isSubmitting: boolean) => void
+    ) {
+        setLoading(true);
+        try {
+            let payload: Record<string, unknown>;
+            if (type === 'b2c') {
+                payload = {
+                    firstName: values.firstName,
+                    lastName: values.lastName,
+                    email: values.email,
+                    phone: values.phone,
+                    password: values.password,
+                    address: values.address,
+                    zip: values.zip,
+                    city: values.city,
+                    country: values.country,
+                    role: 'customer',
+                };
+            } else {
+                payload = {
+                    companyName: values.companyName,
+                    orgNumber: values.orgNumber,
+                    vatNumber: values.vatNumber,
+                    contactName: values.contactName,
+                    email: values.email,
+                    phone: values.phone,
+                    address: values.address,
+                    zip: values.zip,
+                    city: values.city,
+                    country: values.country,
+                    password: values.password,
+                    role: 'carrier',
+                };
+            }
+            await newRequest.post('/auth/register', payload);
+            showAlert('Success!', 'Your action was successful.', 'success');
+        } catch (err) {
+            console.error(err);
+            showAlert('Error', 'Registration failed. Please try again.', 'error');
+        } finally {
+            setSubmitting(false);
+            setLoading(false);
+        }
+    }
+
+    const handleNav = () => {
+        window.location.href = '/sign-in';
+    }
+
     return (
         <FormWrapper title={titleInfo.title} description={titleInfo.description}>
             <Tabs
@@ -132,10 +187,10 @@ const SignUp = () => {
             <Formik
                 initialValues={initialValues}
                 validationSchema={schema}
-                onSubmit={(values, {setSubmitting}) => {
-                    setSubmitting(false);
+                onSubmit={async (values, { setSubmitting }) => {
+                    await handleRegister(values, type, setSubmitting);
                 }}>
-                {({isSubmitting}) => (
+                {() => (
                     <Form>
                         {type === 'b2c' ? (
                             <Grid columns={2} gap="15px">
@@ -172,11 +227,11 @@ const SignUp = () => {
                             </Grid>
                         )}
                         <ConsentCheckbox/>
-                        <CustomButton type="submit" sx={{width: "100%"}} loading={isSubmitting} color="green">
+                        <CustomButton type="submit" sx={{width: "100%"}} loading={loading} color="green">
                             Sign Up
                         </CustomButton>
                         <Divider title="Or"/>
-                        <CustomButton type="submit" sx={{width: "100%"}} loading={isSubmitting} color="blue">
+                        <CustomButton onClick={handleNav} sx={{width: "100%"}} color="blue">
                             Sign In
                         </CustomButton>
                     </Form>
