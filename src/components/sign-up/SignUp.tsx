@@ -138,7 +138,7 @@ const SignUp = () => {
                 {({isSubmitting}) => (
                     <Form>
                         {type === 'b2c' ? (
-                            <Grid columns={2} gap="15px" alignItems="center" justifyItems="center">
+                            <Grid columns={2} gap="15px">
                                 <CustomInput name="firstName" label="First Name" placeholder="First Name"/>
                                 <CustomInput name="lastName" label="Last Name" placeholder="Last Name"/>
                                 <CustomInput name="email" label="Email Address" placeholder="Email Address"
@@ -153,7 +153,7 @@ const SignUp = () => {
                                 <CustomInput name="country" label="Country" placeholder="Country"/>
                             </Grid>
                         ) : (
-                            <Grid columns={2} gap="15px" alignItems="center" justifyItems="center">
+                            <Grid columns={2} gap="15px" >
                                 <CustomInput name="companyName" label="Company Name" placeholder="Company Name"/>
                                 <CustomInput name="orgNumber" label="Organization Number" placeholder="XXXXXX-XXXX"/>
                                 <CustomInput name="vatNumber" label="VAT Number" placeholder="SEXXXXXXXXXX"/>

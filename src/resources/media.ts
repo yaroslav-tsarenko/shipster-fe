@@ -13,5 +13,5 @@ export const media = {
     image9: shipster1,
     image10: shipster1,
     logo: logo,
-    video1: "../../public/videos/shipster_video_1.mp4",
+    video1: "https://media.shipster.se/shipster_video_1.mp4",
 }

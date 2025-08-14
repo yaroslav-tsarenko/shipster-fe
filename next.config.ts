@@ -26,7 +26,11 @@ const nextConfig: NextConfig = {
         remotePatterns: [
             {
                 protocol: "https",
-                hostname: "**.freepik.com", // Разрешаем все сабдомены Freepik
+                hostname: "**.freepik.com",
+            },
+            {
+                protocol: "https",
+                hostname: "media.shipster.se",
             },
         ],
     },
