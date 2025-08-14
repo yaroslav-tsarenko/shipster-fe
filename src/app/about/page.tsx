@@ -1,14 +1,12 @@
-import React from 'react';
-import {defaultMetadata, metadataByRoute} from "@/resources/metadata";
+import type { Metadata } from "next";
+import PageRenderer from "@/constructor/page-render/PageRender";
+import { metadataFromSchema } from "@/utils/fromSchema";
+import aboutSchema from "@/schemas/about/aboutPage";
 
-export const metadata = metadataByRoute["/about"] || defaultMetadata;
+export async function generateMetadata(): Promise<Metadata> {
+    return await metadataFromSchema(aboutSchema.meta);
+}
 
-const Page = () => {
-    return (
-        <div>
-            
-        </div>
-    );
-};
-
-export default Page;
+export default function Page() {
+    return <PageRenderer schema={aboutSchema} />;
+}
