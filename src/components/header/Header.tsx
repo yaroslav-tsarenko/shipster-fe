@@ -1,34 +1,35 @@
 "use client";
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import Logo from "@/assets/logo/logo.svg";
 import styles from './Header.module.scss';
 import Image from "next/image";
 import CustomButton from "@/ui/custom-button/CustomButton";
-import { content } from "@/resources/content";
+import {content} from "@/resources/content";
 import Menu from '@mui/joy/Menu';
 import MenuItem from '@mui/joy/MenuItem';
 import Dropdown from '@mui/joy/Dropdown';
-import { MenuButton } from "@mui/joy";
+import {MenuButton} from "@mui/joy";
 import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
 import Link from 'next/link';
-import { usePathname } from "next/navigation";
+import {usePathname} from "next/navigation";
+import {useUser} from "@/context/UserContext";
 
 const languageOptions = [
-    { code: 'en', label: 'English', flag: '🇬🇧' },
-    { code: 'sv', label: 'Sweden', flag: '🇸🇪' }
+    {code: 'en', label: 'English', flag: '🇬🇧'},
+    {code: 'sv', label: 'Sweden', flag: '🇸🇪'}
 ];
 
 const specialRoutes = ["/sign-up", "/sign-in", "/sign-up-carrier"];
 
 const Header = () => {
     const pathname = usePathname();
-
+    const user = useUser();
     const [lang, setLang] = React.useState('en');
     const [isSticky, setIsSticky] = React.useState(false);
     const headerRef = React.useRef<HTMLDivElement>(null);
-
-    React.useEffect(() => {
+    const DASHBOARD_URL = process.env.NEXT_PUBLIC_DASHBOARD_URL;
+    useEffect(() => {
         const handleScroll = () => {
             if (headerRef.current) {
                 setIsSticky(window.scrollY > 0);
@@ -38,10 +39,9 @@ const Header = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    const { title, nav, signIn, signUp } = content[lang].header;
+    const {title, nav, signIn, signUp} = content[lang].header;
     const currentLang = languageOptions.find(l => l.code === lang);
 
-    // Show simplified header on special routes
     if (specialRoutes.includes(pathname)) {
         return (
             <header className={styles.specialHeader}>
@@ -57,7 +57,6 @@ const Header = () => {
         );
     }
 
-    // Default header
     return (
         <header
             ref={headerRef}
@@ -89,8 +88,13 @@ const Header = () => {
                             ))}
                         </Menu>
                     </Dropdown>
-                    <CustomButton href="sign-in">{signIn}</CustomButton>
-                    <CustomButton color="green" href="sign-up">{signUp}</CustomButton>
+                    {user ? <>
+                        <CustomButton href={DASHBOARD_URL}>Go to app</CustomButton>
+                    </> : <>
+                        <CustomButton href="sign-in">{signIn}</CustomButton>
+                        <CustomButton color="green" href="sign-up">{signUp}</CustomButton>
+                    </>}
+
                 </div>
             </div>
         </header>
